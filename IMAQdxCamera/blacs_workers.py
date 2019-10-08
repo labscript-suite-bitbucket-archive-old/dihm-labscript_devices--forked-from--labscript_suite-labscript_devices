@@ -522,6 +522,16 @@ class IMAQdxCameraWorker(Worker):
     def program_manual(self, values):
         return {}
 
+    def program_properties(self,values):
+        self.set_attributes_smart(values)
+    
+        return values
+
+    def check_remote_values(self):
+        results = self.get_attributes_as_dict()
+
+        return results
+
     def shutdown(self):
         if self.continuous_thread is not None:
             self.stop_continuous()
