@@ -18,3 +18,12 @@ class PylonCameraTab(IMAQdxCameraTab):
     # override worker class
     worker_class = 'labscript_devices.PylonCamera.blacs_workers.PylonCameraWorker'
 
+    device_properties={'ExposureTime':{'default':9000,
+                                       'type':'num',
+                                       'min':0,
+                                       'max':35000,
+                                       'base_unit':'us',
+                                       'step':1,
+                                       'decimals':0},
+                        'CenterX':{'default':False, # for demonstration, remove before merge
+                                   'type':'bool'}}

@@ -110,6 +110,8 @@ class IMAQdxCameraTab(DeviceTab):
     # Subclasses may override this to False if camera attributes should be set every
     # shot even if the same values have previously been set:
     use_smart_programming = True
+    # set which properties to create control widgets for
+    device_properties={}
 
     def initialise_GUI(self):
         layout = self.get_tab_layout()
@@ -158,6 +160,10 @@ class IMAQdxCameraTab(DeviceTab):
             if hasattr(size_policy, 'setRetainSizeWhenHidden'): # Qt 5.2+ only
                 size_policy.setRetainSizeWhenHidden(True)
                 widget.setSizePolicy(size_policy)
+        # auto create and place property widgets
+        self.create_device_properties(self.device_properties)
+        prop_widgets = self.create_property_widgets(self.device_properties)
+        self.auto_place_widgets(('Device Properties',prop_widgets))
 
         # Start the image receiver ZMQ server:
         self.image_receiver = ImageReceiver(self.image, self.ui.label_fps)
