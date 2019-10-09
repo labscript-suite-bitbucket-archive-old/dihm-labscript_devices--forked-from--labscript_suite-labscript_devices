@@ -523,12 +523,17 @@ class IMAQdxCameraWorker(Worker):
         return {}
 
     def program_properties(self,values):
-        self.set_attributes_smart(values)
+        try:
+            self.set_attributes_smart(values)
+        except:
+            print('Error programming device properties. Check values.')
     
         return values
 
     def check_remote_values(self):
-        results = self.get_attributes_as_dict()
+        all_results = self.get_attributes_as_dict('simple')
+        controlled_properties = ['ExposureTime','ExposureAuto','CenterX']
+        results = {(key,all_results[key]) for key in controlled_properties if key in all_results}
 
         return results
 

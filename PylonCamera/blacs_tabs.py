@@ -26,4 +26,9 @@ class PylonCameraTab(IMAQdxCameraTab):
                                        'step':1,
                                        'decimals':0},
                         'CenterX':{'default':False, # for demonstration, remove before merge
-                                   'type':'bool'}}
+                                   'type':'bool'},
+                        'TestImageSelector':{'default':'Off',
+                        			    'type':'enum',
+                        			    'options':['Off','Testimage1','Testimage2']}}
+                        			    # enum options can be list or dict of strings
+                        			    # if dict, only uses keys for enum labels 
