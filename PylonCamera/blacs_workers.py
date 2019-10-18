@@ -186,6 +186,9 @@ class PylonCameraWorker(IMAQdxCameraWorker):
     def get_attributes_as_dict(self, visibility_level):
         """Return a dict of the attributes of the camera for the given visibility
         level"""
-        return self.camera.get_attributes(visibility_level)
+        if self.mock:
+            return IMAQdxCameraWorker.get_attributes_as_dict(self,visibility_level)
+        else:
+            return self.camera.get_attributes(visibility_level)
 
 
