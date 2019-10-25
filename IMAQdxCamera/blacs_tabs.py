@@ -161,9 +161,11 @@ class IMAQdxCameraTab(DeviceTab):
                 size_policy.setRetainSizeWhenHidden(True)
                 widget.setSizePolicy(size_policy)
         # auto create and place property widgets
-        self.create_device_properties(self.device_properties)
-        prop_widgets = self.create_property_widgets(self.device_properties)
-        self.auto_place_widgets(('Device Properties',prop_widgets))
+        # skip if nothing defined to avoid empty space in tab
+        if self.device_properties:
+            self.create_device_properties(self.device_properties)
+            prop_widgets = self.create_property_widgets(self.device_properties)
+            self.auto_place_widgets(('Device Properties',prop_widgets))
 
         # Start the image receiver ZMQ server:
         self.image_receiver = ImageReceiver(self.image, self.ui.label_fps)
