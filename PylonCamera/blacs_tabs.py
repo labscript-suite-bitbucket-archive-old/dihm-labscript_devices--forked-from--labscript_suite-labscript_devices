@@ -29,6 +29,14 @@ class PylonCameraTab(IMAQdxCameraTab):
                                    'type':'bool'},
                         'TestImageSelector':{'default':'Off',
                         			    'type':'enum',
-                        			    'options':['Off','Testimage1','Testimage2']}}
+                        			    'options':{'Off':0,
+                        			    		   'Testimage1':{'index':1,'tooltip':'Angled Stripes'},
+                        			    		   'Testimage2':{'index':2,'tooltip':'Offset Angled Stripes'}
+                        			    		   }
+                        			    	},
+                        'PixelFormat':{'default':'Mono12',
+                        			   'type':'enum',
+                        			   'options':['Mono8','Mono12','Mono12p']}
+                        }
                         			    # enum options can be list or dict of strings
                         			    # if dict, only uses keys for enum labels 
