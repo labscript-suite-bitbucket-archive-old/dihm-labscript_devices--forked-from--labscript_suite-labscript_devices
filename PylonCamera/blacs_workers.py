@@ -45,6 +45,8 @@ class Pylon_Camera(object):
         # Keep a nodeMap reference so we don't have to re-create a lot
         self.nodeMap = self.camera.GetNodeMap()
         self._abort_acquisition = False
+        # Keep a reference to properties that must be integers
+        self.int_props = ['Width', 'Height', 'OffsetX', 'OffsetY']
 
     def set_attributes(self, attributes_dict):
         """Sets all attribues in attr_dict.
@@ -52,6 +54,12 @@ class Pylon_Camera(object):
         so we do them separately."""
         # make a copy of dict so we can pop off already handled values
         attr_dict = attributes_dict.copy()
+        # certain settings must be set as integer type, 
+        # but labscript AO objects aren't so discerning, need to enforce here
+        update = attr_dict.keys() & self.int_props
+        for key in update:
+            attr_dict[key] = int(attr_dict[key])
+
         ROIx = ['Width','OffsetX']
         ROIy = ['Height','OffsetY']
         if set(ROIx).issubset(attr_dict):
