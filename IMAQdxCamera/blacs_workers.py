@@ -522,6 +522,21 @@ class IMAQdxCameraWorker(Worker):
     def program_manual(self, values):
         return {}
 
+    def program_properties(self,values):
+        try:
+            self.set_attributes_smart(values)
+        except:
+            print('Error programming device properties. Check values.')
+    
+        return values
+
+    def check_remote_values(self):
+        all_results = self.get_attributes_as_dict('simple')
+        controlled_properties = ['ExposureTime','ExposureAuto','CenterX']
+        results = {(key,all_results[key]) for key in controlled_properties if key in all_results}
+
+        return results
+
     def shutdown(self):
         if self.continuous_thread is not None:
             self.stop_continuous()
